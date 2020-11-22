@@ -1,14 +1,14 @@
 <template>
   <div class="home">
     <Form @submit="submitData" />
-    <StockGrid :symbol="symbol" :ratings="ratings" />
+    <Ratings :symbol="symbol" :ratings="ratings" />
     <Post />
   </div>
 </template>
 
 <script>
 import Form from "./Form.vue";
-import StockGrid from "./StockGrid.vue";
+import Ratings from "./Ratings.vue";
 import Post from "./Post.vue";
 
 import {
@@ -21,7 +21,7 @@ export default {
   name: "Home",
   components: {
     Form,
-    StockGrid,
+    Ratings,
     Post
   },
   data() {

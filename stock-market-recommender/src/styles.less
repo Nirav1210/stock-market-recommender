@@ -1,66 +1,101 @@
 #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
+	font-family: Avenir, Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-align: center;
+	color: #2c3e50;
+	margin-top: 60px;
 }
+
+@color-buy: #4abfbf;
+@color-hold: #ffcf57;
+@color-sell: #ff6183;
 
 .home {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
-
 .content-area {
-    display: flex;
-    margin: 1rem;
-    border: solid black 1px;
-    border-radius: 5px;
-    justify-content: center;
-    flex-direction: column;
+	display: flex;
+	margin: 1rem;
+	padding: 1rem;
+	border: solid black 1px;
+	border-radius: 5px;
+	justify-content: center;
+	flex-direction: column;
 }
-
-.time-window {
-    display: flex;
-    margin: 0.5rem 2rem;
-    border: solid black 1px;
-    border-radius: 5px;
-    flex-direction: row;
-    justify-content: center;
+.form-area {
+	display: flex;
+	margin: 0.5rem 2rem;
+	background-color: #F3F5F7;
+	color: #282C34;
+	border: solid black 1px;
+	border-radius: 5px;
+	flex-direction: column;
+	justify-content: center;
 }
-
+.check-box-area {
+	flex-direction: row;
+}
 label {
-    font-weight: bold;
+	font-weight: bold;
 }
-
+.errors {
+	color: red;
+}
+button {
+	margin: 1rem;
+	color: #F3F5F7;
+	background-color: #486FB9;
+	border: none;
+	border-radius: 0.5rem;
+	padding: 0.5rem;
+	font-weight: bold;
+	font-size: medium;
+}
+.legend {
+	list-style: none;
+	li {
+		float: left;
+		margin-right: 10px;
+	}
+	span {
+		border: 1px solid #ccc;
+		float: left;
+		width: 12px;
+		height: 12px;
+		margin: 5px;
+		margin-top: 5px;
+	}
+	.buy {
+		background-color: @color-buy;
+	}
+	.hold {
+		background-color: @color-hold;
+	}
+	.sell {
+		background-color: @color-sell;
+	}
+}
 input {
-    margin: .5rem;
-    border: none;
-    background: hsl(0 0% 93%);
-    border-radius: .25rem;
-    padding: .75rem 1rem;
-    
-    &[type="submit"] {
-      background: lightblue;
-      color: white;
-    }
-  }
-
+	margin: .5rem;
+	font-size: medium;
+	border: none;
+	color: white;
+	background: #282C34;
+	border-radius: .25rem;
+	padding: .75rem 1rem;
+}
 .sticky-div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: antiquewhite;
-    height: 3rem;
-    position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #3FB37F;
+	height: 3rem;
+	position: fixed;
     width: 100%;
+    font-size: x-large;
 }
-
 header {
-    top: 0;
-}
-
-footer {
-    bottom: 0;
+	top: 0;
 }

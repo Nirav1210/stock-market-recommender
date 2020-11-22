@@ -68,3 +68,42 @@ describe("Form validation", () => {
     );
   });
 });
+
+describe("social media form", () => {
+  const wrapper = shallowMount(Form);
+  beforeEach(() => {
+    wrapper.setData({
+      mediaTypes: [],
+      socialMediaList: [
+        { id: 1, name: "facebook" },
+        { id: 3, name: "media2" }
+      ],
+      mediaName: "",
+      symbol: "ABCD",
+      startDate: "2020-11-04",
+      endDate: "2020-11-10",
+      isError: false,
+      errors: {
+        symbol: "",
+        mediaType: "",
+        timeWindow: ""
+      }
+    });
+  });
+  describe("given remove button is clicked", () => {
+    it("should remove social media type", () => {
+      wrapper.vm.removeSocialMedia(1);
+      expect(wrapper.vm.socialMediaList).toEqual([{ id: 3, name: "media2" }]);
+    });
+  });
+  describe("given add button is clicked", () => {
+    it("should add a new social media type", () => {
+      wrapper.setData({
+        mediaName: "newType"
+      });
+      wrapper.vm.addSocialMedia();
+      expect(wrapper.vm.socialMediaList[2].id).toEqual(4);
+      expect(wrapper.vm.socialMediaList[2].name).toEqual("newType");
+    });
+  });
+});

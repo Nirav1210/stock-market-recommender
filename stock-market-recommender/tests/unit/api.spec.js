@@ -32,35 +32,57 @@ describe("given recommendationAlgorithm is executed", () => {
   beforeEach(() => {});
   const data = [
     {
-      price: [ {date: "2020-11-04", price: 2 }, {date: "2020-11-05", price: 15 }, {date: "2020-11-06", price: 4 }],
+      price: [
+        { date: "2020-11-04", price: 2 },
+        { date: "2020-11-05", price: 15 },
+        { date: "2020-11-06", price: 4 }
+      ],
       count: [0, 6, 1],
       result: [
         [2, "hold", "2020-11-04"],
-        [15, "buy", "2020-11-05"],
+        [15, "hold", "2020-11-05"],
         [4, "buy", "2020-11-06"]
       ]
     },
     {
-      price: [{date: "2020-11-04", price: 2 }, {date: "2020-11-05", price: 15 }, {date: "2020-11-06", price: 4 }, {date: "2020-11-07", price: 9 }],
+      price: [
+        { date: "2020-11-04", price: 2 },
+        { date: "2020-11-05", price: 15 },
+        { date: "2020-11-06", price: 4 },
+        { date: "2020-11-07", price: 9 }
+      ],
       count: [0, 6, 1, 2],
       result: [
         [2, "hold", "2020-11-04"],
-        [15, "buy", "2020-11-05"],
+        [15, "hold", "2020-11-05"],
         [4, "hold", "2020-11-06"],
-        [9, "buy", "2020-11-07"]
+        [9, "hold", "2020-11-07"]
       ]
     },
     {
-      price: [{date: "2020-11-04", price: 10.4 }, {date: "2020-11-05", price: 10.59 }, {date: "2020-11-06", price: 11.2 }, {date: "2020-11-07", price: 5.7 } ],
+      price: [
+        { date: "2020-11-04", price: 10.4 },
+        { date: "2020-11-05", price: 10.59 },
+        { date: "2020-11-06", price: 11.2 },
+        { date: "2020-11-07", price: 5.7 }
+      ],
       count: [3, 0, 5, 1],
       result: [
         [10.4, "buy", "2020-11-04"],
         [10.59, "sell", "2020-11-05"],
-        [11.2, "buy", "2020-11-06"],
+        [11.2, "hold", "2020-11-06"],
         [5.7, "hold", "2020-11-07"]
       ]
     },
-    { price: [{date: "2020-11-04", price: 2 }, {date: "2020-11-05", price: 15 }, {date: "2020-11-06", price: 4 }], count: [0, 6], result: [] }
+    {
+      price: [
+        { date: "2020-11-04", price: 2 },
+        { date: "2020-11-05", price: 15 },
+        { date: "2020-11-06", price: 4 }
+      ],
+      count: [0, 6],
+      result: []
+    }
   ];
   data.forEach(item => {
     it(`should return correct set of ratings`, () => {

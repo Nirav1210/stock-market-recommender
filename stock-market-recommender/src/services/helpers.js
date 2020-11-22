@@ -38,10 +38,14 @@ export function getMedians(prices, counts) {
 }
 
 export function getDaysArray(start, end) {
-    let arr;
-    let dt;
-    for(arr=[], dt=new Date(start); dt <= end; dt.setDate(dt.getDate()+1) ) {
-        arr.push(new Date(dt));
-    }
-    return arr;
-};
+  let days;
+  let date;
+  for (
+    days = [], date = new Date(start);
+    date <= end;
+    date.setDate(date.getDate() + 1)
+  ) {
+    days.push(new Date(date));
+  }
+  return days;
+}

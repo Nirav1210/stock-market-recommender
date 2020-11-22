@@ -1,33 +1,34 @@
 <template>
   <div class="content-area">
-    <div>
+    <div class="form-area">
       <label class="form-field"
         >Stock symbol:
         <input v-model="symbol" maxlength="4" />
       </label>
       <span class="errors">{{ errors.symbol }}</span>
     </div>
-    <div>
-      <label>Social media type</label>
-      <span class="errors">{{ errors.mediaType }}</span>
-      <input
-        type="checkbox"
-        id="facebook"
-        value="Facebook"
-        v-model="mediaTypes"
-      />
-      <label for="facebook">Facebook</label>
-      <input
-        type="checkbox"
-        id="twitter"
-        value="Twitter"
-        v-model="mediaTypes"
-      />
-      <label for="twitter">Twitter</label>
+    <div class="form-area check-box-area">
+      <div class="content-area">
+        <div v-for="type in socialMediaList" :key="type.id">
+          <input
+            type="checkbox"
+            :id="type.name"
+            :value="type.name"
+            v-model="mediaTypes"
+          />
+          <label :for="type.name">{{
+            type.name.charAt(0).toUpperCase() + type.name.slice(1)
+          }}</label>
+          <button v-on:click="removeSocialMedia(type.id)">Remove</button>
+        </div>
+        <span class="errors">{{ errors.mediaType }}</span>
+      </div>
+      <div class="content-area">
+        <input v-model="mediaName" placeholder="Enter a media name" />
+        <button v-on:click="addSocialMedia">Add Media</button>
+      </div>
     </div>
-    <div class="time-window">
-      <label>Time window</label>
-      <span class="errors">{{ errors.timeWindow }}</span>
+    <div class="form-area">
       <label
         >Start date:
         <input v-model="startDate" type="date" />
@@ -36,8 +37,9 @@
         >End date:
         <input v-model="endDate" type="date" />
       </label>
+      <span class="errors">{{ errors.timeWindow }}</span>
     </div>
-    <button v-on:click="submitForm">Submit</button>
+    <div><button v-on:click="submitForm">Submit</button></div>
   </div>
 </template>
 
@@ -51,6 +53,11 @@ export default {
   data() {
     return {
       mediaTypes: [],
+      mediaName: "",
+      socialMediaList: [
+        { id: 1, name: "facebook" },
+        { id: 2, name: "twitter" }
+      ],
       symbol: "",
       startDate: this.getStartDate(),
       endDate: this.getEndDate(),
@@ -64,11 +71,11 @@ export default {
   },
   methods: {
     getStartDate() {
-      const tenDaysBefore = new Date(Date.now() - 10 * 24 * 60 * 60 * 1000);
-      return tenDaysBefore.toISOString().slice(0,10);
+      const tenDaysBefore = new Date(Date.now() - 9 * 24 * 60 * 60 * 1000);
+      return tenDaysBefore.toISOString().slice(0, 10);
     },
     getEndDate() {
-      return new Date(Date.now()).toISOString().slice(0,10);
+      return new Date(Date.now()).toISOString().slice(0, 10);
     },
     submitForm() {
       this.resetErrors();
@@ -107,6 +114,24 @@ export default {
         timeWindow: ""
       };
     },
+    removeSocialMedia(id) {
+      let newList = this.socialMediaList.filter(item => item.id !== id);
+      this.socialMediaList = newList;
+      this.mediaTypes = [];
+    },
+    addSocialMedia() {
+      if (!this.mediaName) {
+        return;
+      }
+
+      let newId = this.socialMediaList[this.socialMediaList.length - 1].id + 1;
+      const newType = {
+        name: this.mediaName,
+        id: newId
+      };
+      this.socialMediaList.push(newType);
+      this.mediaName = "";
+    }
   }
 };
 </script>
