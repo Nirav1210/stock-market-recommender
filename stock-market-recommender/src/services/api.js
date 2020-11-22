@@ -1,4 +1,4 @@
-import { getNumberOfDays, getMedians } from './helpers';
+import { getMedians, getDaysArray } from "./helpers";
 
 /**
  * Returns an array of prices, for a given time period
@@ -7,18 +7,22 @@ import { getNumberOfDays, getMedians } from './helpers';
  * @param {*} endDate String
  */
 export function stockPriceGenerator(stockSymbol, startDate, endDate) {
-  let numberOfDays = 10;
   const max = 500;
   const min = 1;
   let prices = [];
 
-  if (startDate && endDate) {
-    numberOfDays = getNumberOfDays(startDate, endDate);
+  if (!startDate || !endDate) {
+      const tenDaysBefore = new Date(Date.now() - 9 * 24 * 60 * 60 * 1000);
+      startDate = tenDaysBefore.toISOString().slice(0,10);
+      endDate = new Date(Date.now()).toISOString().slice(0,10);
+    // numberOfDays = getNumberOfDays(startDate, endDate);
   }
+  const days = getDaysArray(new Date(startDate), new Date(endDate));
 
-  for (let i = numberOfDays; i > 0; i--) {
+  for (let i = days.length - 1; i >= 0; i--) {
+    let day = days[i].toISOString().slice(0,10)
     const rand = Math.random() * (max - min) + min;
-    prices.push(rand.toFixed(2));
+    prices.push({ date: day, price: rand.toFixed(2) });
   }
 
   return prices;
@@ -36,28 +40,31 @@ export function socialMediaCountGenerator(stockSymbol, mediaTypes) {
 
   const min = 0;
   const max = 100;
-  let mediaInfo = {};
+  let postCount = 0
 
-  mediaTypes.forEach((type) => {
+  // add all social media post counts for a stock symbol
+  mediaTypes.forEach(() => {
     const rand = Math.floor(Math.random() * (max - min) + min);
-    mediaInfo[type] = rand;
+    postCount += rand;
   });
 
-  return mediaInfo;
+  return postCount;
 }
 
 /**
  * Provides a buy, hold or sell recommendation when given stock prices,
  * social media counts and risk ratios
- * @param {*} prices Array - list of stock prices
+ * @param {*} prices Array - list of stock prices per dates
  * @param {*} counts Array - list of socia media counts
  */
 export function recommendationAlgorithm(prices, counts) {
-  if (prices.length !== counts.length) {
-    return null;
+  if (counts.length === 0 || prices.length !== counts.length) {
+    return [];
   }
 
-  const { priceMedian, countMedian } = getMedians(prices, counts);
+  let values = prices.map(item => item.price);
+
+  const { priceMedian, countMedian } = getMedians(values, counts);
 
   // follwoing theory is followed to make a recommendation
 
@@ -70,11 +77,15 @@ export function recommendationAlgorithm(prices, counts) {
   // count is smaller than countMedian -> sell
 
   let ratings = [];
-  prices.forEach((price, index) => {
-    if (price <= priceMedian.toFixed(2)) {
-      counts[index] >= countMedian.toFixed(2) ? ratings.push([price, "buy"]) : ratings.push([price, "hold"]);
+  values.forEach((price, index) => {
+    if (price <= priceMedian) {
+      counts[index] >= countMedian.toFixed(2)
+        ? ratings.push([price, "buy", prices[index].date])
+        : ratings.push([price, "hold", prices[index].date]);
     } else {
-      counts[index] >= countMedian.toFixed(2) ? ratings.push([price, "buy"]) : ratings.push([price, "sell"]);
+      counts[index] >= countMedian.toFixed(2)
+        ? ratings.push([price, "buy", prices[index].date])
+        : ratings.push([price, "sell", prices[index].date]);
     }
   });
 
