@@ -1,0 +1,66 @@
+#app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+}
+
+.home {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-area {
+    display: flex;
+    margin: 1rem;
+    border: solid black 1px;
+    border-radius: 5px;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.time-window {
+    display: flex;
+    margin: 0.5rem 2rem;
+    border: solid black 1px;
+    border-radius: 5px;
+    flex-direction: row;
+    justify-content: center;
+}
+
+label {
+    font-weight: bold;
+}
+
+input {
+    margin: .5rem;
+    border: none;
+    background: hsl(0 0% 93%);
+    border-radius: .25rem;
+    padding: .75rem 1rem;
+    
+    &[type="submit"] {
+      background: lightblue;
+      color: white;
+    }
+  }
+
+.sticky-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: antiquewhite;
+    height: 3rem;
+    position: fixed;
+    width: 100%;
+}
+
+header {
+    top: 0;
+}
+
+footer {
+    bottom: 0;
+}
