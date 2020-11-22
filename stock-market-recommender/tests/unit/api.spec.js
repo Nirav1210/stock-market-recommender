@@ -69,8 +69,8 @@ describe("given recommendationAlgorithm is executed", () => {
       count: [3, 0, 5, 1],
       result: [
         [10.4, "buy", "2020-11-04"],
-        [10.59, "sell", "2020-11-05"],
-        [11.2, "hold", "2020-11-06"],
+        [10.59, "hold", "2020-11-05"],
+        [11.2, "buy", "2020-11-06"],
         [5.7, "hold", "2020-11-07"]
       ]
     },

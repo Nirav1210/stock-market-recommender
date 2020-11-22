@@ -2,14 +2,12 @@
   <div class="home">
     <Form @submit="submitData" />
     <Ratings :symbol="symbol" :ratings="ratings" />
-    <Post />
   </div>
 </template>
 
 <script>
 import Form from "./Form.vue";
 import Ratings from "./Ratings.vue";
-import Post from "./Post.vue";
 
 import {
   socialMediaCountGenerator,
@@ -21,8 +19,7 @@ export default {
   name: "Home",
   components: {
     Form,
-    Ratings,
-    Post
+    Ratings
   },
   data() {
     return {

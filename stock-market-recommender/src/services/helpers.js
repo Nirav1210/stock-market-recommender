@@ -25,11 +25,9 @@ export function getMedians(prices, counts) {
   const isEven = sorted.length % 2 === 0;
   return isEven
     ? {
-        priceMedian: (sorted[middle - 1.5] + sorted[middle - 0.5]) / 2,
-        countMedian:
-          (counts[prices.indexOf(sorted[middle - 1.5])] +
-            counts[prices.indexOf(sorted[middle - 0.5])]) /
-          2
+        priceMedian: sorted[middle - 1.5] + sorted[middle - 0.5] / 2,
+        // eslint-disable-next-line
+        countMedian: counts[prices.indexOf(sorted[middle - 1.5])] + counts[prices.indexOf(sorted[middle - 0.5])] / 2
       }
     : {
         priceMedian: sorted[middle - 1],
